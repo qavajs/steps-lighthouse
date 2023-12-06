@@ -22,7 +22,7 @@ module.exports = {
 
 ## Usage
 Module provides `I perform lighthouse audit as save results as {variable}` 
-step that creates performs audit, attaches html report and save results as \{variable} variable
+step that performs audit, attaches html report and save results as \{variable} variable
 
 ```gherkin
 Feature: Lighthouse
