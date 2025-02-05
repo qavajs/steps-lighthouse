@@ -32,7 +32,10 @@ export function playwrightAdapter(page: Page & { target: Function }) {
 }
 
 export async function wdioAdapter(browser: any) {
+    if (!browser.getPuppeteer) {
+        throw new Error('Protocol does not support puppeteer connection.\nTry to run via bidi driver');
+    }
     const puppeteer = await browser.getPuppeteer();
     const pages = await puppeteer.pages();
-    return pages[0]
+    return pages.find((p: any) => p.url() !== 'data:,')
 }

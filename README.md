@@ -6,18 +6,16 @@ Library can work on top of playwright and webdriverio drivers
 `npm install @qavajs/steps-lighthouse`
 
 ## Configuration
-```javascript
-module.exports = {
-    default: {
-        require: [
-            'node_modules/@qavajs/steps-wdio/index.js', //corresponding driver library should be imported first
-            'node_modules/@qavajs/steps-lighthouse/index.js'
-        ],
-        format: [
-            ['@qavajs/html-formatter', 'report.html']
-        ],
+```typescript
+export default {
+    require: [
+        'node_modules/@qavajs/steps-wdio/index.js', //corresponding driver library should be imported first
+        'node_modules/@qavajs/steps-lighthouse/index.js'
+    ],
+    format: [
+        ['@qavajs/html-formatter', 'report.html']
+    ]
     }
-}
 ```
 
 ## Usage

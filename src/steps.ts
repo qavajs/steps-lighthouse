@@ -4,19 +4,12 @@ const lighthouseModule = import('lighthouse').then(module => module.default);
 // @ts-ignore
 import type { Flags, Config } from 'lighthouse';
 import { playwrightAdapter, wdioAdapter } from './adapter';
-import memory from '@qavajs/memory';
-
-declare global {
-    var browser: any;
-    var page: any;
-    var config: any;
-    var context: any;
-}
+import {MemoryValue} from "@qavajs/core";
 
 async function audit(world: IWorld, config?: Config) {
-    const page = global.page
-        ? playwrightAdapter(global.page)
-        : await wdioAdapter(global.browser)
+    const page = world.playwright
+        ? playwrightAdapter(world.playwright.page)
+        : await wdioAdapter(world.wdio.browser)
     const lighthouse = await lighthouseModule;
     const flags: Flags =  { output: 'html' };
     const results = await lighthouse(page.url(), flags, config, page as any);
@@ -30,9 +23,9 @@ async function audit(world: IWorld, config?: Config) {
  * @example
  * When I perform lighthouse audit and save results as 'lighthouseReport'
  */
-When('I perform lighthouse audit and save results as {string}', async function (resultsKey) {
+When('I perform lighthouse audit and save results as {value}', async function (resultsKey: MemoryValue) {
     const results = await audit(this);
-    memory.setValue(resultsKey, results.lhr);
+    resultsKey.set(results.lhr);
 });
 
 /**
@@ -55,10 +48,10 @@ When('I perform lighthouse audit and save results as {string}', async function (
  *     }
  * """
  */
-When('I perform lighthouse audit and save results as {string}:', async function (resultsKey, rawConfig) {
-    const config = JSON.parse(await memory.getValue(rawConfig));
+When('I perform lighthouse audit and save results as {value}:', async function (resultsKey: MemoryValue, rawConfig: string) {
+    const config = JSON.parse(await this.getValue(rawConfig));
     const results = await audit(this, config);
-    memory.setValue(resultsKey, results.lhr);
+    resultsKey.set(results.lhr);
 });
 
 /**
@@ -66,10 +59,9 @@ When('I perform lighthouse audit and save results as {string}:', async function 
  * @example
  * When I perform lighthouse audit with '#lhConfig' and save results as 'lighthouseReport':
  */
-When('I perform lighthouse audit with {string} config and save results as {string}', async function (configKey, resultsKey) {
-    const config = await memory.getValue(configKey);
-    const results = await audit(this, config);
-    memory.setValue(resultsKey, results.lhr);
+When('I perform lighthouse audit with {value} config and save results as {value}', async function (configKey: MemoryValue, resultsKey: MemoryValue) {
+    const results = await audit(this, await configKey.value());
+    resultsKey.set(results.lhr);
 });
 
 
