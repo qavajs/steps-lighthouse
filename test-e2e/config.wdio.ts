@@ -14,7 +14,6 @@ export default {
     ],
     browser: {
         logLevel: 'warn',
-        automationProtocol: 'devtools',
         capabilities: {
             browserName: 'chrome',
             'goog:chromeOptions': {
