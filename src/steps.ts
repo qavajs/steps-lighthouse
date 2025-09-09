@@ -1,4 +1,4 @@
-import { When, IWorld } from '@cucumber/cucumber';
+import { When, IWorld } from '@qavajs/core';
 // @ts-ignore
 const lighthouseModule = import('lighthouse').then(module => module.default);
 // @ts-ignore

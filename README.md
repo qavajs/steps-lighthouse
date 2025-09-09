@@ -1,9 +1,11 @@
 # @qavajs/steps-lighthouse
-Steps to perform lighthouse audit.
+qavajs steps to perform lighthouse audit.
 Library can work on top of playwright and webdriverio drivers
 
 ## Installation
-`npm install @qavajs/steps-lighthouse`
+```
+npm install @qavajs/steps-lighthouse
+```
 
 ## Configuration
 ```typescript
