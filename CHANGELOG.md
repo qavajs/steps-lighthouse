@@ -4,6 +4,9 @@ All notable changes to the "@qavajs/steps-lighthouse" will be documented in this
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [2.0.1]
+- :rocket: updated libraries
+
 ## [2.0.0]
 - :rocket: implemented compatibility with qavajs@2 and wdio@9
 
