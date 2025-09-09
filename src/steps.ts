@@ -1,10 +1,9 @@
-import { When, IWorld } from '@qavajs/core';
+import { type MemoryValue, When, IWorld } from '@qavajs/core';
 // @ts-ignore
 const lighthouseModule = import('lighthouse').then(module => module.default);
 // @ts-ignore
 import type { Flags, Config } from 'lighthouse';
 import { playwrightAdapter, wdioAdapter } from './adapter';
-import {MemoryValue} from "@qavajs/core";
 
 async function audit(world: IWorld, config?: Config) {
     const page = world.playwright
