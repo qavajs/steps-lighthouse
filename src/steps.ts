@@ -1,6 +1,5 @@
 import { type MemoryValue, When, IWorld } from '@qavajs/core';
-// @ts-ignore
-const lighthouseModule = import('lighthouse').then(module => module.default);
+const lighthouseModule = () => import('lighthouse').then(module => module.default);
 // @ts-ignore
 import type { Flags, Config } from 'lighthouse';
 import { playwrightAdapter, wdioAdapter } from './adapter';
@@ -9,7 +8,7 @@ async function audit(world: IWorld, config?: Config) {
     const page = world.playwright
         ? playwrightAdapter(world.playwright.page)
         : await wdioAdapter(world.wdio.browser)
-    const lighthouse = await lighthouseModule;
+    const lighthouse = await lighthouseModule();
     const flags: Flags =  { output: 'html' };
     const results = await lighthouse(page.url(), flags, config, page as any);
     if (!results) throw new Error(`Lighthouse audit report was not generated`);
