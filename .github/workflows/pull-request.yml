@@ -1,18 +1,25 @@
 name: Test
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches:
       - main
+      - v1
 
 jobs:
-  build:
+  test-web:
+    strategy:
+      matrix:
+        version: [ 20, 22, 24 ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ matrix.version }}
       - run: npm ci
       - run: npm run build
       - run: npx playwright install

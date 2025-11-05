@@ -17,7 +17,7 @@ export default {
     format: [
         ['@qavajs/html-formatter', 'report.html']
     ]
-    }
+}
 ```
 
 ## Usage
